@@ -1323,6 +1323,13 @@ void UI::ReleaseFontFaces()
 
 void UI::ProcessHover(const IntVector2& windowCursorPos, MouseButtonFlags buttons, QualifierFlags qualifiers, Cursor* cursor)
 {
+    static i32 prev_frame_id {0};
+    auto time = GetSubsystem<Time>();
+    i32 frame_id = time->GetFrameNumber();
+    if (frame_id == prev_frame_id)
+        return;
+    prev_frame_id = frame_id;
+
     IntVector2 cursorPos;
     WeakPtr<UIElement> element(GetElementAt(windowCursorPos, true, &cursorPos));
 
@@ -1412,6 +1419,13 @@ void UI::ProcessHover(const IntVector2& windowCursorPos, MouseButtonFlags button
 
 void UI::ProcessClickBegin(const IntVector2& windowCursorPos, MouseButton button, MouseButtonFlags buttons, QualifierFlags qualifiers, Cursor* cursor, bool cursorVisible)
 {
+    static i32 prev_frame_id {0};
+    auto time = GetSubsystem<Time>();
+    i32 frame_id = time->GetFrameNumber();
+    if (frame_id == prev_frame_id)
+        return;
+    prev_frame_id = frame_id;
+    
     if (cursorVisible)
     {
         IntVector2 cursorPos;
